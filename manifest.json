@@ -1,0 +1,13 @@
+{
+  "manifest_version": 3,
+  "name": "History Cleaner",
+  "version": "1.0",
+  "permissions": ["history", "storage", "tabs", "activeTab"],
+  "action": {
+    "default_popup": "popup.html"
+  },
+  "background": {
+    "service_worker": "src/js/background/index.js",
+    "type": "module"
+  }
+}

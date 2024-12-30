@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Browser History Cleaner</title>
+        <link rel="stylesheet" href="./src/css/popup.css">
+    </head>
+
+    <body>
+        <div class="filter-container">
+            <div class="filter-criteria">
+                <label for="domain">Domain:</label>
+                <input type="text" class="filter-input" id="domain" placeholder="Domain (e.g., google.com)">
+            </div>
+            <div class="filter-criteria">
+                <label for="keyword">Keyword:</label>
+                <input type="text" class="filter-input" id="keyword" placeholder="Keyword in title">
+            </div>
+            <div class="filter-criteria">
+                <label for="start-time">Start Time:</label>
+                <input type="datetime-local" class="filter-input" id="start-time">
+            </div>
+            <div class="filter-criteria">
+                <label for="end-time">End Time:</label>
+                <input type="datetime-local" class="filter-input" id="end-time">
+            </div>
+            <button type="button" id="search">Search History</button>
+        </div>
+        <div id="results-container">
+            <div class="history-item hide" id="select-all-container">
+                <input type="checkbox" id="select-all" title="Select All">
+                <div>
+                    <p>Select All</p>
+                    <div>
+                        <p>Selected: <span id="selected-count">0</span>/<span id="total-count">0</span></p>
+                    </div>
+                </div>
+            </div>
+            <div id="results" class="hide"></div>
+        </div>
+        <button id="delete" type="button" disabled>Delete Selected</button>
+        <script src="./src/js/popup/index.js" type="module"></script>
+    </body>
+
+</html>

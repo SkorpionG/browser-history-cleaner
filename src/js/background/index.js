@@ -1,7 +1,7 @@
 import { updateHistoryCountBadge } from "../utils/background.js";
 
 // Listen for tab updates
-chrome.tabs.onActivated.addListener(async (activeInfo) => {
+chrome.tabs.onActivated.addListener((activeInfo) => {
   updateHistoryCountBadge(activeInfo.tabId);
 });
 

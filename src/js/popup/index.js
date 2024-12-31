@@ -1,21 +1,35 @@
 import { renderHistoryList } from "./ui.js";
-import { updateSelectedItemsCount, toggleSelectAllVisibility } from "../utils/utils.js";
+import {
+  updateSelectedItemsCount,
+  toggleSelectAllVisibility,
+} from "../utils/utils.js";
 import { getCurrentTabDomain } from "../utils/url.js";
-import { updateHistoryCountBadge, saveSearchFilters } from "../utils/background.js";
+import {
+  updateHistoryCountBadge,
+  saveSearchFilters,
+} from "../utils/background.js";
 
 document.addEventListener("DOMContentLoaded", async function () {
+  const domainInput = document.getElementById("domain");
+  const keywordInput = document.getElementById("keyword");
+  const startTimeInput = document.getElementById("start-time");
+  const endTimeInput = document.getElementById("end-time");
+
   const currentDomain = await getCurrentTabDomain();
+
+  domainInput.value = currentDomain || "";
+
   // Retrieve last search parameters
   chrome.storage.local.get("lastSearch", function (result) {
-    if (result.lastSearch) {
-      const lastSearch = result.lastSearch;
-
+    const lastSearch = result.lastSearch;
+    if (lastSearch) {
       // Pre-fill the form fields
-      document.getElementById("domain").value =
-        currentDomain || lastSearch.domain || "";
-      document.getElementById("keyword").value = lastSearch.keyword || "";
-      document.getElementById("start-time").value = lastSearch.startTime || "";
-      document.getElementById("end-time").value = lastSearch.endTime || "";
+      if (!currentDomain) {
+        domainInput.value = lastSearch.domain || "";
+      }
+      keywordInput.value = lastSearch.keyword || "";
+      startTimeInput.value = lastSearch.startTime || "";
+      endTimeInput.value = lastSearch.endTime || "";
     }
   });
 });
@@ -33,7 +47,7 @@ document.getElementById("select-all").addEventListener("change", (event) => {
 });
 
 document
-  .querySelectorAll("filter-criteria > input.filter-input")
+  .querySelectorAll(".filter-criteria > input.filter-input")
   .forEach((historyFilter) => {
     historyFilter.addEventListener("change", async () => {
       saveSearchFilters();

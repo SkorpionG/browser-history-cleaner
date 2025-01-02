@@ -8,6 +8,10 @@ import {
   updateHistoryCountBadge,
   saveSearchFilters,
 } from "../utils/background.js";
+import { DeleteProgressPopup } from "../components/DeleteProgressPopup.js";
+
+const deleteProgressPopup = new DeleteProgressPopup();
+deleteProgressPopup.create(100);
 
 document.addEventListener("DOMContentLoaded", async function () {
   const domainInput = document.getElementById("domain");
@@ -105,10 +109,24 @@ document.getElementById("delete").addEventListener("click", async () => {
 
   let deletedCount = 0;
 
+  const progressPopup = new DeleteProgressPopup();
+  progressPopup.create(selectedItems.length);
+
   for (const item of selectedItems) {
     try {
       await chrome.history.deleteUrl({ url: item.url });
-      deletedCount++;
+      // 確認是否真的被刪除
+      const searchResult = await chrome.history.search({
+        text: item.url,
+        startTime: 0,
+        maxResults: 1,
+      });
+
+      // 只有在確認 URL 完全被刪除後才更新進度
+      if (!searchResult.some((result) => result.url === item.url)) {
+        deletedCount++;
+        progressPopup.updateProgress(deletedCount);
+      }
     } catch (error) {
       console.error("Error deleting URL:", error);
     }

@@ -6,6 +6,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Browser History Cleaner</title>
         <link rel="stylesheet" href="./src/css/popup.css">
+        <link rel="stylesheet" href="./src/css/delete-progress.css">
     </head>
 
     <body>
@@ -26,7 +27,7 @@
                 <label for="end-time">End Time:</label>
                 <input type="datetime-local" class="filter-input" id="end-time">
             </div>
-            <button type="button" id="search">Search History</button>
+            <button type="button" id="search" class="button">Search History</button>
         </div>
         <div id="results-container">
             <div class="history-item hide" id="select-all-container">
@@ -40,7 +41,7 @@
             </div>
             <div id="results" class="hide"></div>
         </div>
-        <button id="delete" type="button" disabled>Delete Selected</button>
+        <button id="delete" type="button" class="button" disabled>Delete Selected</button>
         <script src="./src/js/popup/index.js" type="module"></script>
     </body>
 

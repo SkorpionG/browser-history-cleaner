@@ -10,9 +10,6 @@ import {
 } from "../utils/background.js";
 import { DeleteProgressPopup } from "../components/DeleteProgressPopup.js";
 
-const deleteProgressPopup = new DeleteProgressPopup();
-deleteProgressPopup.create(100);
-
 document.addEventListener("DOMContentLoaded", async function () {
   const domainInput = document.getElementById("domain");
   const keywordInput = document.getElementById("keyword");
